@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatLabel } from '@angular/material/form-field';
 import { MatError } from '@angular/material/form-field';
+import { Cliente } from './cliente';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,9 +22,10 @@ import { MatError } from '@angular/material/form-field';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CadastroComponent {
-cadastroForm: any;
+  ngForm: any;
+  cliente: Cliente = new Cliente('', '', '', '');
 
-onSubmit(): void {
-  console.log('Form submitted:', this.cadastroForm.value);
-}
+  onSubmit(): void {
+    console.log('Form submitted:', this.ngForm.value);
+  }
 }
