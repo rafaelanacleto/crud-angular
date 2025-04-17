@@ -1,14 +1,21 @@
 <div fxLayout="row" fxLayoutGap="center">
-    <div fxLayout="column" fxFlex="1000px">
-        <form class="mt-60" #buscaForm="ngForm">
-            <mat-card appearance="outlined" class="card">
-                <mat-card-header>
-                    <mat-card-title>Pesquisa</mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="mt-20">
-                    conteudo
-                </mat-card-content>
-            </mat-card>
-        </form>
-    </div>
+  <div fxLayout="column" fxFlex="1000px">
+    <form class="mt-60" #buscaForm="ngForm">
+      <mat-card appearance="outlined" class="card">
+        <mat-card-header>
+          <mat-card-title>Pesquisa</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-20"> 
+            <div fxLayout="row" fxLayoutGap="20px">
+              <mat-form-field appearance="outline" class="w-300">
+                <mat-label>Nome</mat-label>
+                <input matInput [(ngModel)]="filtro.nome" name="nome" required>               
+              </mat-form-field>
+              <button mat-flat-button color="primary" class="ml-5" type="submit" (click)="pesquisar()">Pesquisar</button>
+              <button mat-flat-button color="primary" class="ml-5" type="button" (click)="limpar()">Limpar</button>
+            </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
 </div>
