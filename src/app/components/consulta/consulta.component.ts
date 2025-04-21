@@ -9,10 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { Cliente } from '../cadastro/cliente';
 import {MatTableModule} from '@angular/material/table';
 import { ClienteService } from '../../cliente.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-consulta',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatCardModule, FlexLayoutModule, MatIconModule, MatButton, MatTableModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatCardModule, FlexLayoutModule, MatIconModule, MatButton, MatTableModule, CommonModule],
   standalone: true,
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css',
