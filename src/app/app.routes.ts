@@ -11,6 +11,8 @@ export const routes: Routes = [
     // },
 
     { path: 'cadastro', component: CadastroComponent },
+    { path: 'cadastro/:id', component: CadastroComponent },
+    { path: 'cadastro/remove/:id', component: CadastroComponent },
     { path: 'consulta', component: ConsultaComponent },
     
 ];

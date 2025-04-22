@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { MatLabel } from '@angular/material/form-field';
 import { MatError } from '@angular/material/form-field';
 import { Cliente } from './cliente';
 import { ClienteService } from '../../cliente.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -34,13 +35,35 @@ import { ClienteService } from '../../cliente.service';
   styleUrl: './cadastro.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CadastroComponent {
+export class CadastroComponent implements OnInit {
   ngForm: any;
+  id: string = '';
+  atualizando : boolean = false;
   cliente: Cliente = new Cliente('', '', '', '');
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+   this.id = this.activatedRoute.snapshot.params['id'];
+   console.log('ID recebido:', this.id);
+   console.log('snapshot', this.activatedRoute.snapshot);
+
+   if (this.id) {
+      this.atualizando = true;
+     this.cliente = this.clienteService.obterClientePorId(this.id);
+   }
+
+  }
 
   salvar() {
-    this.clienteService.salvar(this.cliente);
+
+    if (this.atualizando) {
+      this.clienteService.atualizar(this.cliente);
+      this.atualizando = false;
+    } else {
+      this.clienteService.salvar(this.cliente);
+    }
+    this.cliente = new Cliente('', '', '', '');
+    
   }
 }

@@ -17,3 +17,11 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+a {
+  text-decoration: none;
+  position: center top;
+  font-family: arial;
+  font-style: normal;  
+  font-weight: 900;  
+}
