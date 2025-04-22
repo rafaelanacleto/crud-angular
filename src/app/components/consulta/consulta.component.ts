@@ -1,39 +1,55 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Cliente } from '../cadastro/cliente';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ClienteService } from '../../cliente.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-consulta',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatCardModule, FlexLayoutModule, MatIconModule, MatButton, MatTableModule, CommonModule, RouterLink],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatCardModule, MatIconModule, MatButton, MatTableModule, CommonModule, RouterLink, MatProgressSpinnerModule],
   standalone: true,
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConsultaComponent {
+export class ConsultaComponent implements OnInit {
 
   filtro : Cliente = new Cliente('', '', '', '');
   clientes: Cliente[] = [];
+  isLoading = true;
+  progress = 0;
   displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'acoes'];
   dataSource = new MatTableDataSource<Cliente>(this.clientes);
+  router: any;
 
-  constructor(private clienteService: ClienteService) {
-    this.carregarDados();    
+  constructor(private clienteService: ClienteService, router : Router, private cdr: ChangeDetectorRef) {       
   }
 
   carregarDados(): void {
-    this.clientes = this.clienteService.obterStorage();
-    this.dataSource = new MatTableDataSource(this.clientes);
+   
+    // Simulação de um carregamento assíncrono
+    setTimeout(() => {      
+      this.clientes = this.clienteService.obterStorage();
+      this.dataSource = new MatTableDataSource(this.clientes);    
+        
+      this.isLoading = false;
+      console.log('Dados carregarDados: rafael ferreira anacletro ', this.isLoading);    
+      this.cdr.detectChanges(); // Notifica o Angular para verificar as mudanças
+    }, 3000);
+  }
+
+  ngOnInit(): void {
+    // Simulação de um carregamento assíncrono
+    console.log('Dados ngOnInit: rafael ferreira anacletro ', this.isLoading);    
+    this.carregarDados();
   }
 
   applyFilter(event: Event) {
@@ -47,10 +63,11 @@ export class ConsultaComponent {
       this.dataSource.data = [...this.dataSource.data]; // Crie uma nova referência para forçar a atualização
       // 4. Atualize a tabela
       this.dataSource._updateChangeSubscription();
-
+      this.isLoading = true;
       // Opcional: Você pode adicionar uma lógica para comunicar essa exclusão ao seu backend
       console.log(`Item com ID ${id} excluído.`);
       this.carregarDados();    
+
   }
 
 }

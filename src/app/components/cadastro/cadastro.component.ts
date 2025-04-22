@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -17,8 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
-  imports: [
-    FlexLayoutModule,
+  imports: [    
     MatCardModule,
     FormsModule,
     MatFormField,
