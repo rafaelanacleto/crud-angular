@@ -1,65 +1,71 @@
 <div>
   <div>
-      <form class="mt-60" #clientesFrm="ngForm" (ngSubmit)="salvar()">
-          <mat-card>
-              <mat-card-header>
-                  <mat-card-title>Dados Pessoais</mat-card-title>
-              </mat-card-header>
-              <mat-card-content class="mt-20">
-                  <div>
-                      <div>
-                          <mat-form-field class="full-width">
-                              <mat-label>Nome: *</mat-label>
-                              <input type="text" 
-                                     [(ngModel)]="cliente.nome"
-                                     name="nome"
-                                     placeholder="Ex: José da Silva" matInput />
-                          </mat-form-field>
-                      </div>
-                  </div>
+    <form class="mt-60" #clientesFrm="ngForm" (ngSubmit)="salvar()">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Dados Pessoais</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-20">
+          <div>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>Nome: *</mat-label>
+                <input
+                  type="text"
+                  [(ngModel)]="cliente.nome"
+                  name="nome"
+                  placeholder="Ex: José da Silva"
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+          </div>
 
-                  <div>
-                      <div>
-                          <mat-form-field class="full-width">
-                              <mat-label>Email: *</mat-label>
-                              <input type="email" 
-                                     [(ngModel)]="cliente.email"
-                                     name="email"
-                                     placeholder="Digite seu email" matInput />
-                          </mat-form-field>
-                      </div>
-                  </div>
+          <div>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>Email: *</mat-label>
+                <input
+                  type="email"
+                  [(ngModel)]="cliente.email"
+                  name="email"
+                  [email]="true"
+                  placeholder="Digite seu email"
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+          </div>
 
-                  <div>
-                    <div>
-                        <mat-form-field class="full-width">
-                            <mat-label>Telefone: *</mat-label>
-                            <input type="phone" 
-                                   [(ngModel)]="cliente.telefone"
-                                   name="telefone"
-                                   placeholder="Digite seu telefone" matInput />
-                        </mat-form-field>
-                    </div>
-                </div>
-
-
-
-              </mat-card-content>
-              <mat-card-actions>
-                  <button mat-flat-button color="primary" type="submit" class="ml-5">
-                      <mat-icon fontIcon="save"></mat-icon>
-                      Salvar
-                  </button>
-                  <button mat-flat-button color="primary" class="ml-5">
-                      <mat-icon fontIcon="refresh"></mat-icon>
-                      Atualizar
-                  </button>
-                  <button mat-flat-button color="accent" type="reset" class="ml-5">
-                      <mat-icon fontIcon="backspace"></mat-icon>
-                      Limpar
-                  </button>
-              </mat-card-actions>
-          </mat-card>
-      </form>
+          <div>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>Telefone: *</mat-label>
+                <input
+                  type="phone"
+                  [(ngModel)]="cliente.telefone"
+                  name="telefone"
+                  mask="(99) 99999-9999"
+                  [dropSpecialCharacters]="false"
+                  [showMaskTyped]="true"
+                  placeholder="Digite seu telefone"
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button color="primary" type="submit" class="ml-5">
+            <mat-icon fontIcon="save"></mat-icon>
+            Salvar
+          </button>
+          <button mat-flat-button color="accent" type="reset" class="ml-5">
+            <mat-icon fontIcon="backspace"></mat-icon>
+            Limpar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
   </div>
 </div>
