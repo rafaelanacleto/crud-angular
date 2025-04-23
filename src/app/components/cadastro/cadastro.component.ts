@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -10,23 +15,22 @@ import { Cliente } from './cliente';
 import { ClienteService } from '../../cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastro',
-  imports: [    
+  imports: [
     MatCardModule,
     FormsModule,
     MatFormField,
     MatInput,
     MatButton,
-    MatIcon,    
+    MatIcon,
     ReactiveFormsModule,
     MatLabel,
-    NgxMaskDirective,    
+    NgxMaskDirective,
   ],
-  providers: [    
-    provideNgxMask(),
-  ],
+  providers: [provideNgxMask()],
   templateUrl: './cadastro.component.html',
   standalone: true,
   styleUrl: './cadastro.component.css',
@@ -35,32 +39,42 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 export class CadastroComponent implements OnInit {
   ngForm: any;
   id: string = '';
-  atualizando : boolean = false;
+  atualizando: boolean = false;
   cliente: Cliente = new Cliente('', '', '', '');
+  private _snackBar = inject(MatSnackBar);
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private clienteService: ClienteService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-   this.id = this.activatedRoute.snapshot.params['id'];
-   console.log('ID recebido:', this.id);
-   console.log('snapshot', this.activatedRoute.snapshot);
+    this.id = this.activatedRoute.snapshot.params['id'];
+    console.log('ID recebido:', this.id);
+    console.log('snapshot', this.activatedRoute.snapshot);
 
-   if (this.id) {
+    if (this.id) {
       this.atualizando = true;
-     this.cliente = this.clienteService.obterClientePorId(this.id);
-   }
+      this.cliente = this.clienteService.obterClientePorId(this.id);
+    }
+  }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
   salvar() {
-
     if (this.atualizando) {
       this.clienteService.atualizar(this.cliente);
       this.atualizando = false;
+      this.openSnackBar('Cliente atualizado com sucesso!', 'Fechar');
+    
     } else {
       this.clienteService.salvar(this.cliente);
+      this.openSnackBar('Cliente criado com sucesso!', 'Fechar');
     }
-    this.cliente = new Cliente('', '', '', '');
-    
+    this.cliente = new Cliente('', '', '', '');    
   }
 }
