@@ -15,3 +15,20 @@ export class Cliente {
         this.telefone = telefone;
     }
 }
+
+/**
+ * "cep": "94040-140",
+  "logradouro": "Rua Francisco Ouriques da Silveira",
+  "complemento": "",
+  "unidade": "",
+  "bairro": "COHAB B",
+  "localidade": "Gravataí",
+  "uf": "RS",
+  "estado": "Rio Grande do Sul",
+  "regiao": "Sul",
+  "ibge": "4309209",
+  "gia": "",
+  "ddd": "51",
+  "siafi": "8683"
+ * 
+ */
