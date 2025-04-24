@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Endereco } from './endereco';
+import { BrasilApiService } from '../../brasil-api.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -46,7 +47,8 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private brasilApi: BrasilApiService
   ) {}
 
   ngOnInit() {
@@ -59,6 +61,23 @@ export class CadastroComponent implements OnInit {
       this.cliente = this.clienteService.obterClientePorId(this.id);
     }
   }
+
+  buscarEndereco(cep: string) {
+    this.brasilApi.getCep(cep).subscribe((endereco: Endereco) => {
+      this.cliente.endereco = endereco;
+      console.log('Endereço encontrado:', endereco);
+      this.cliente.endereco.cep = endereco.cep;
+      this.cliente.endereco.logradouro = endereco.logradouro;
+      this.cliente.endereco.bairro = endereco.bairro;
+      this.cliente.endereco.localidade = endereco.localidade;
+      this.cliente.endereco.uf = endereco.uf;
+      this.cliente.endereco.estado = endereco.estado;
+      this.cliente.endereco.numero = endereco.numero;
+      this.cliente.endereco.complemento = endereco.complemento;
+      this.cliente.endereco.unidade = endereco.unidade;
+      this.cliente.endereco.regiao = endereco.regiao;
+      this.cliente.endereco.ibge = endereco.ibge;
+    })};
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

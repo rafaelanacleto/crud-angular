@@ -27,7 +27,7 @@ export class ConsultaComponent implements OnInit {
   clientes: Cliente[] = [];
   isLoading = true;
   progress = 0;
-  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'cep', 'bairro', 'acoes'];
   dataSource = new MatTableDataSource<Cliente>(this.clientes);
   router: any;
 
@@ -40,7 +40,7 @@ export class ConsultaComponent implements OnInit {
     setTimeout(() => {      
       this.clientes = this.clienteService.obterStorage();
       this.dataSource = new MatTableDataSource(this.clientes);    
-        
+      console.log(this.clientes);  
       this.isLoading = false;      
       this.cdr.detectChanges(); // Notifica o Angular para verificar as mudanças
     }, 1500);

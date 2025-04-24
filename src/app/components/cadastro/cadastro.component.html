@@ -1,11 +1,11 @@
 <div>
   <div>
-    <form class="mt-60" #clientesFrm="ngForm" (ngSubmit)="salvar()">
+    <form class="mt-30" #clientesFrm="ngForm" (ngSubmit)="salvar()">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Dados Pessoais</mat-card-title>
+          <mat-card-title>Dados Pessoais: </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="mt-20">
+        <mat-card-content class="mt-40">
           <div>
             <div>
               <mat-form-field class="full-width">
@@ -20,7 +20,6 @@
               </mat-form-field>
             </div>
           </div>
-
           <div>
             <div>
               <mat-form-field class="full-width">
@@ -36,7 +35,6 @@
               </mat-form-field>
             </div>
           </div>
-
           <div>
             <div>
               <mat-form-field class="full-width">
@@ -53,8 +51,7 @@
                 />
               </mat-form-field>
             </div>
-          </div>
-          <hr>
+          </div>          
           <div>
             <div>
               <mat-form-field class="full-width">
@@ -68,11 +65,38 @@
                   name="cep"                  
                   placeholder="Digite seu CEP"
                   matInput
+                  (blur)="buscarEndereco(cliente.endereco!.cep || '')"
                 />
               </mat-form-field>
             </div>
-          </div>
-        </mat-card-content>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>Bairro *</mat-label>
+                <input
+                  type="text"
+                  [(ngModel)]="cliente.endereco!.bairro"
+                  name="bairro"                  
+                  placeholder=""
+                  [value]="cliente.endereco!.bairro"                  
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>Localidade *</mat-label>
+                <input
+                  type="text"
+                  [(ngModel)]="cliente.endereco!.localidade"                  
+                  name="localidade"                                  
+                  placeholder=""
+                  [value]="cliente.endereco!.localidade"
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+          </div>          
+        </mat-card-content>        
         <mat-card-actions>
           <button mat-flat-button color="primary" type="submit" class="ml-5">
             <mat-icon fontIcon="save"></mat-icon>

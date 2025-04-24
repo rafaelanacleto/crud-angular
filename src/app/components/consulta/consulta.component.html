@@ -35,6 +35,18 @@
         <th mat-header-cell *matHeaderCellDef> Telefone </th>
         <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
       </ng-container>
+
+       <!-- cep Column -->
+       <ng-container matColumnDef="cep">
+        <th mat-header-cell *matHeaderCellDef> CEP </th>
+        <td mat-cell *matCellDef="let element"> {{element.endereco.cep}} </td>
+      </ng-container>
+
+       <!-- bairro Column -->
+       <ng-container matColumnDef="bairro">
+        <th mat-header-cell *matHeaderCellDef> Bairro </th>
+        <td mat-cell *matCellDef="let element"> {{element.endereco.bairro}} </td>
+      </ng-container>
   
       <!-- acoes Column -->
       <ng-container matColumnDef="acoes">
