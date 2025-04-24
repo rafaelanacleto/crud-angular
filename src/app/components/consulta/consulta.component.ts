@@ -11,6 +11,7 @@ import { ClienteService } from '../../cliente.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Endereco } from '../cadastro/endereco';
 
 @Component({
   selector: 'app-consulta',
@@ -22,7 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class ConsultaComponent implements OnInit {
 
-  filtro : Cliente = new Cliente('', '', '', '');
+  filtro : Cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
   clientes: Cliente[] = [];
   isLoading = true;
   progress = 0;
@@ -40,15 +41,13 @@ export class ConsultaComponent implements OnInit {
       this.clientes = this.clienteService.obterStorage();
       this.dataSource = new MatTableDataSource(this.clientes);    
         
-      this.isLoading = false;
-      console.log('Dados carregarDados: rafael ferreira anacletro ', this.isLoading);    
+      this.isLoading = false;      
       this.cdr.detectChanges(); // Notifica o Angular para verificar as mudanças
     }, 3000);
   }
 
   ngOnInit(): void {
-    // Simulação de um carregamento assíncrono
-    console.log('Dados ngOnInit: rafael ferreira anacletro ', this.isLoading);    
+    // Simulação de um carregamento assíncrono   
     this.carregarDados();
   }
 
@@ -64,8 +63,7 @@ export class ConsultaComponent implements OnInit {
       // 4. Atualize a tabela
       this.dataSource._updateChangeSubscription();
       this.isLoading = true;
-      // Opcional: Você pode adicionar uma lógica para comunicar essa exclusão ao seu backend
-      console.log(`Item com ID ${id} excluído.`);
+      // Opcional: Você pode adicionar uma lógica para comunicar essa exclusão ao seu backend      
       this.carregarDados();    
 
   }

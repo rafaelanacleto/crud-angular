@@ -54,6 +54,21 @@
               </mat-form-field>
             </div>
           </div>
+          <hr>
+          <div>
+            <div>
+              <mat-form-field class="full-width">
+                <mat-label>CEP: *</mat-label>
+                <input
+                  type="text"
+                  [(ngModel)]="cliente.endereco"
+                  name="cep"                  
+                  placeholder="Digite seu CEP"
+                  matInput
+                />
+              </mat-form-field>
+            </div>
+          </div>
         </mat-card-content>
         <mat-card-actions>
           <button mat-flat-button color="primary" type="submit" class="ml-5">

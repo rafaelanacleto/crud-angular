@@ -16,6 +16,7 @@ import { ClienteService } from '../../cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Endereco } from './endereco';
 
 @Component({
   selector: 'app-cadastro',
@@ -40,7 +41,7 @@ export class CadastroComponent implements OnInit {
   ngForm: any;
   id: string = '';
   atualizando: boolean = false;
-  cliente: Cliente = new Cliente('', '', '', '');
+  cliente: Cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
   private _snackBar = inject(MatSnackBar);
 
   constructor(
@@ -75,6 +76,6 @@ export class CadastroComponent implements OnInit {
       this.clienteService.salvar(this.cliente);
       this.openSnackBar('Cliente criado com sucesso!', 'Fechar');
     }
-    this.cliente = new Cliente('', '', '', '');    
+    this.cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
   }
 }
