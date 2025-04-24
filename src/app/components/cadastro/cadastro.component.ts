@@ -9,7 +9,8 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
 import { MatLabel } from '@angular/material/form-field';
 import { Cliente } from './cliente';
 import { ClienteService } from '../../cliente.service';
@@ -31,6 +32,7 @@ import { BrasilApiService } from '../../brasil-api.service';
     ReactiveFormsModule,
     MatLabel,
     NgxMaskDirective,
+    MatSelectModule,
   ],
   providers: [provideNgxMask()],
   templateUrl: './cadastro.component.html',
@@ -44,6 +46,8 @@ export class CadastroComponent implements OnInit {
   atualizando: boolean = false;
   cliente: Cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
   private _snackBar = inject(MatSnackBar);
+  toppings = new FormControl('');
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   constructor(
     private clienteService: ClienteService,

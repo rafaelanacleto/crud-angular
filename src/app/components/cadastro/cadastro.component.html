@@ -51,7 +51,7 @@
                 />
               </mat-form-field>
             </div>
-          </div>          
+          </div>
           <div>
             <div>
               <mat-form-field class="full-width">
@@ -61,8 +61,8 @@
                   [(ngModel)]="cliente.endereco!.cep"
                   mask="99999-999"
                   [dropSpecialCharacters]="false"
-                  [showMaskTyped]="true"                  
-                  name="cep"                  
+                  [showMaskTyped]="true"
+                  name="cep"
                   placeholder="Digite seu CEP"
                   matInput
                   (blur)="buscarEndereco(cliente.endereco!.cep || '')"
@@ -75,9 +75,9 @@
                 <input
                   type="text"
                   [(ngModel)]="cliente.endereco!.bairro"
-                  name="bairro"                  
+                  name="bairro"
                   placeholder=""
-                  [value]="cliente.endereco!.bairro"                  
+                  [value]="cliente.endereco!.bairro"
                   matInput
                 />
               </mat-form-field>
@@ -87,16 +87,35 @@
                 <mat-label>Localidade *</mat-label>
                 <input
                   type="text"
-                  [(ngModel)]="cliente.endereco!.localidade"                  
-                  name="localidade"                                  
+                  [(ngModel)]="cliente.endereco!.localidade"
+                  name="localidade"
                   placeholder=""
                   [value]="cliente.endereco!.localidade"
                   matInput
                 />
               </mat-form-field>
             </div>
-          </div>          
-        </mat-card-content>        
+            <div>
+              <mat-form-field>
+                <mat-label>Toppings</mat-label>
+                <mat-select [formControl]="toppings" multiple>
+                  <mat-select-trigger>
+                    {{toppings.value?.[0] || ''}}
+                    @if ((toppings.value?.length || 0) > 1) {
+                    <span class="example-additional-selection">
+                      (+{{ (toppings.value?.length || 0) - 1 }}
+                      {{ toppings.value?.length === 2 ? "other" : "others" }})
+                    </span>
+                    }
+                  </mat-select-trigger>
+                  @for (topping of toppingList; track topping) {
+                  <mat-option [value]="topping">{{ topping }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
         <mat-card-actions>
           <button mat-flat-button color="primary" type="submit" class="ml-5">
             <mat-icon fontIcon="save"></mat-icon>
