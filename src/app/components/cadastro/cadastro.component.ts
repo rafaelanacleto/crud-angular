@@ -73,6 +73,7 @@ export class CadastroComponent implements OnInit {
       this.openSnackBar('Cliente atualizado com sucesso!', 'Fechar');
     
     } else {
+      console.log('Cliente a ser salvo:', this.cliente);
       this.clienteService.salvar(this.cliente);
       this.openSnackBar('Cliente criado com sucesso!', 'Fechar');
     }

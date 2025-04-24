@@ -61,7 +61,10 @@
                 <mat-label>CEP: *</mat-label>
                 <input
                   type="text"
-                  [(ngModel)]="cliente.endereco"
+                  [(ngModel)]="cliente.endereco!.cep"
+                  mask="99999-999"
+                  [dropSpecialCharacters]="false"
+                  [showMaskTyped]="true"                  
                   name="cep"                  
                   placeholder="Digite seu CEP"
                   matInput

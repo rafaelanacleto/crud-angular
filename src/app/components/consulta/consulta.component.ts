@@ -43,7 +43,7 @@ export class ConsultaComponent implements OnInit {
         
       this.isLoading = false;      
       this.cdr.detectChanges(); // Notifica o Angular para verificar as mudanças
-    }, 3000);
+    }, 1500);
   }
 
   ngOnInit(): void {
