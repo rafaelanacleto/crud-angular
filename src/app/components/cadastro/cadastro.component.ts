@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatLabel } from '@angular/material/form-field';
 import { Cliente } from './cliente';
 import { ClienteService } from '../../cliente.service';
@@ -19,6 +19,9 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Endereco } from './endereco';
 import { BrasilApiService } from '../../brasil-api.service';
+
+import { Uf } from './uf';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro',
@@ -44,10 +47,16 @@ export class CadastroComponent implements OnInit {
   ngForm: any;
   id: string = '';
   atualizando: boolean = false;
-  cliente: Cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
+  cliente: Cliente = new Cliente(
+    '',
+    '',
+    '',
+    '',
+    new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', '')
+  );
   private _snackBar = inject(MatSnackBar);
-  toppings = new FormControl('');
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  selectedValue: string = 'option1';
+  ufs: Uf[] = [];
 
   constructor(
     private clienteService: ClienteService,
@@ -56,14 +65,20 @@ export class CadastroComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.params['id'];
-    console.log('ID recebido:', this.id);
-    console.log('snapshot', this.activatedRoute.snapshot);
+    this.id = this.activatedRoute.snapshot.params['id'];   
+    this.buscarUf();
 
     if (this.id) {
       this.atualizando = true;
       this.cliente = this.clienteService.obterClientePorId(this.id);
     }
+  }
+
+  buscarUf() {
+    this.brasilApi.getEstados().subscribe((ufs: Uf[]) => {      
+      this.ufs = ufs;
+      console.log('Ufs encontrados:', this.ufs);
+    });
   }
 
   buscarEndereco(cep: string) {
@@ -81,7 +96,8 @@ export class CadastroComponent implements OnInit {
       this.cliente.endereco.unidade = endereco.unidade;
       this.cliente.endereco.regiao = endereco.regiao;
       this.cliente.endereco.ibge = endereco.ibge;
-    })};
+    });
+  }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -94,12 +110,17 @@ export class CadastroComponent implements OnInit {
       this.clienteService.atualizar(this.cliente);
       this.atualizando = false;
       this.openSnackBar('Cliente atualizado com sucesso!', 'Fechar');
-    
     } else {
       console.log('Cliente a ser salvo:', this.cliente);
       this.clienteService.salvar(this.cliente);
       this.openSnackBar('Cliente criado com sucesso!', 'Fechar');
     }
-    this.cliente = new Cliente('', '', '', '', new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', ''));
+    this.cliente = new Cliente(
+      '',
+      '',
+      '',
+      '',
+      new Endereco('', '', '', '', '', '', '', '', '', '', '', '', '', '', '')
+    );
   }
 }

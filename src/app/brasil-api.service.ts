@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Uf } from './components/cadastro/uf';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,8 @@ export class BrasilApiService {
   getCidades(uf: string) {
     return this.http.get(`https://servicodados.ibge.gov.br/api/v2/malhas/${uf}`);
   }
-  getEstados() {
-    return this.http.get('https://servicodados.ibge.gov.br/api/v2/malhas/BR');
+  getEstados() :Observable<Uf[]> {
+    return this.http.get<Uf[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados');    
   }
   getBairros(cep: string) {
     return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
